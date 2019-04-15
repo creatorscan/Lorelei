@@ -1,0 +1,26 @@
+#!/bin/bash
+
+grp_affix=grp_v0
+grp_affix=grp_v0_nolangid
+#./run/run-mult_dataprep.${grp_affix}.sh --stage 3
+<<"train"
+#   --stage_gmm -1 \
+ ./run/run-mult_train.sh \
+    --task-train train_mult_kaldi \
+    --stage_gmm 6 \
+    --stage 1 \
+    --stage_nn 15 \
+    --lang data/lang \
+    --exp _MultRDTv1_short_10kstates
+    #--exp _MultRDTv1_short_10kstates.${grp_affix}
+train
+
+# extracting test features    
+ ./run/run-mult_train.sh \
+    --task-train IL10 \
+    --stage_gmm -1 \
+    --stage 1 \
+    --stage_nn 15 \
+    --lang data/lang \
+    --exp _MultRDTv1_short_10kstates
+    #--exp _MultRDTv1_short_10kstates.${grp_affix}
